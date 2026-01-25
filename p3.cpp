@@ -75,6 +75,13 @@ int main(){
     int A[f][c]={{3,3,3,3,3},{3,4,4,2,3},{3,4,5,4,3},{3,3,3,3,3}};
     int (*p)[c]=A;
 
+    for (int (*i)[5] = p; i < p+4; ++i) {
+        for (int* j = *i; j <*i+ 5; ++j) {
+            cout << *j << " ";
+        }
+        cout << endl;
+    }cout <<endl;
+
     recorrido(p);
 
     return 0;
