@@ -1,5 +1,20 @@
 #include <iostream>
+#include <cstring>
 using namespace std;
+
+int separar_palabras_strtok(char* texto, char* palabras[]){
+    int i=0;
+    char* token= strtok(texto," ");
+
+    while (token!=nullptr)
+    {
+        *(palabras+i)=token;
+        token=strtok(nullptr," ");
+        i++;
+    }
+    
+    return i;
+}
 
 int separar_palabras(char* texto, char* palabras[]){
     int i=0;
