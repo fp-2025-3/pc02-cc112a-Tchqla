@@ -32,7 +32,7 @@ int separar_palabras(char* texto, char* palabras[]){
     return i;
 }
 
-int longitud_palabra(const char* p){//*(p+i)?? maybe debe ser asi para el arreglo palabra
+int longitud_palabra(const char* p){
     const char* str= p;
     while (*str!=' ' && *str!='\0')
     {
