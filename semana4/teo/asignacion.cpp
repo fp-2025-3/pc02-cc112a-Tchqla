@@ -11,7 +11,10 @@ void asignar(float** p, int n, int k){
 void completar(float** p, int n, int k){
     for (int i = 0; i < n; i++)
     {
-        cin>>*(*(p+k-1)+i);
+        while (*(*(p+k-1)+i)>=20 && *(*(p+k-1)+i)<=0)
+        {
+            cin>>*(*(p+k-1)+i);
+        }
     }
     
 }
@@ -105,7 +108,8 @@ int main(){
 
     do
     {   
-        cout<<"1. agregar un estudiante y sus notas.\n";
+        cout<<"\n1. agregar un estudiante y sus notas.\n";
+        cout<<"2. lista completa.'\n";
         cout<<"cualquier otro numero para salir.\n";
         cin >>opc;cout<<endl;
 
@@ -127,10 +131,25 @@ int main(){
 
             delete[] prom;prom=nullptr;
             break;
+
+        case 2:
+            cout<<"lista completa:\n";
+            
+            for (float** i = lista; i < lista+k; i++)
+            {
+                int a=i-lista;cout<<"\nalumno "<<a<<"\t";
+                for (float* j = *i; j < *i+n; j++)
+                {
+                    cout<<*j<<" ";
+                }
+                
+            }
+            break;
+                
         default:
             break;
         }
-    } while(opc==1);
+    } while(opc<3);
 
     liberacion(lista,k);
 
