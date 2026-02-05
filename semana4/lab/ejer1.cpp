@@ -22,7 +22,7 @@ char* leer(){
 char* normaliza(char* frase){
     char temp[100];int i=0,j=0;
 
-    while(*temp!='\0'){
+    while(*(frase+i)!='\0'){
         if (!isspace(frase[i]))
         {
             temp[j]=tolower(frase[i]);
