@@ -128,7 +128,43 @@ int valorNucleo(int (*M)[5]){
 
 int main(){
     const int N = 5;
-    int M[N][N];
+    int M[N][N]= {
+        {0, 0, 7, 8, 9},
+        {0, 0, 0, 5, 6},
+        {0, 0, 0, 0, 4},
+        {1, 2, 3, 4 ,5},
+        {9, 8, 7, 6, 5}
+    };
+
+    for (int i = 0; i < N; i++)
+    {
+        if (esFilaDominante(M,i))
+        {
+            cout << "la fila "<<i+1<<" si es dominante.\n";
+        }
+        else{
+            cout<<"la fila "<<i+1<<" no es dominante.\n";
+        }
+        
+    }
+    
+    cout<< "\nhay "<<contarColumnasCriticas(M)<<" columnas criticas.\n";
+
+    if (esMatrizEscalonada(M))
+    {
+        cout<<"\nes matriz escalonada.\n";
+    }else
+    {
+        cout<<"\nno es matriz escalonada\n";
+    }
+
+    if (valorNucleo(M)!=-1)
+    {
+        cout<<"\nnucleo: "<<valorNucleo(M)<<endl;
+    }else
+    {
+        cout<<"\nno tiene nucleo\n";
+    }
 
     return 0;
 }
