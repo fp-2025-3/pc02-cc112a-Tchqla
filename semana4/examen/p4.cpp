@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-void duplicar(int* &arr, float* &arr2, int n){
+void duplicar(int* &arr, float* &arr2, int &n){
     int* nueint=new int[2*n];
     float* nueflo=new float[2*n];
 
@@ -11,10 +11,10 @@ void duplicar(int* &arr, float* &arr2, int n){
         *(nueflo+i)=*(arr2+i);
     }
 
+    delete[] arr;delete[] arr2;
     arr2=nueflo;arr=nueint;
     
-    delete[] nueflo;delete[] nueint;
-    nueflo=nullptr;nueint=nullptr;n=2*n;
+    n=2*n;
 }
 
 void redimensionarDesapro(int* &arr, float* &arr2, int &n){
@@ -26,49 +26,40 @@ void redimensionarDesapro(int* &arr, float* &arr2, int &n){
             c++;
         }
     }
-    
-    for (int i = 0; i < n-1; i++)
-    {
-        for (int j = 0; j < n-i-1; j++)
-        {
-            if (*(arr2+j)<10)
-            {
-                swap(*(arr2+j),*(arr2+j+1));
-            }
-            
-        }
-        
-    }
 
-    int k=n-c;
+    int k=n-c,j=0;
     int* nueint=new int[k];
     float* nueflo=new float[k];
 
-    for (int i = 0; i < k; i++)
+    for (int i = 0; i < n; i++)
     {
-        *(nueint+i)=*(arr+i);
-        *(nueflo+i)=*(arr2+i);
+        if (*(arr2+i)>=10)
+        {
+            *(nueint+j)=*(arr+i);
+            *(nueflo+j)=*(arr2+i);
+            j++;
+        }
+        
+        
     }
 
-    arr=nullptr;arr2=nullptr;
-    
+    delete[] arr;delete[] arr2;
     arr2=nueflo;arr=nueint;
-    
-    delete[] nueflo;delete[] nueint;
-    nueflo=nullptr;nueint=nullptr;n=k;
+
+    n=k;
 }
 
 int llenado(int* &arr, float* &arr2, int &n, int c){
     int i=0;
-    while (i<c && i<=n)
+    while (i<c)
     {
-        cout<<"codigo: ";cin>>*(arr+i);
-        cout<<"promedio: ";cin>>*(arr2+i);
-        i++;
-    
         if(i==n){
             duplicar(arr,arr2,n);
         }
+
+        cout<<"codigo: ";cin>>*(arr+i);
+        cout<<"promedio: ";cin>>*(arr2+i);
+        i++;
     }
 
     return i;
@@ -82,14 +73,17 @@ int main(){
     cout<<"cuantos estudiantes seran: ";cin>>cant;
     int total=llenado(codigos,promedios,n,cant);
 
-    cout<<"filtrando estudiantes desaprobados...";
+    cout<<"\nfiltrando estudiantes desaprobados...\n";
     redimensionarDesapro(codigos,promedios,total);
-    cout<<"estudiantes desaprobados:\n";
+    
+    cout<<"\nestudiantes aprobados:\n";
 
     for (int i = 0; i < total; i++)
     {
-        cout<<"codigo: "<<*(codigos+i)<<" promedio: "<<*(promedios+i);
+        cout<<"codigo: "<<*(codigos+i)<<" promedio: "<<*(promedios+i)<<endl;
     }
+
+    delete[] codigos; delete[] promedios;
     
     return 0;
 }

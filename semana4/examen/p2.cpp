@@ -5,17 +5,14 @@ using namespace std;
 void leer(char** nombres, int* tiempo, int n){
     for (int i = 0; i < n; i++)
     {
-        cout<<"\ncorredor "<<i+1<<"(max. 20 caracteres): ";cin.getline(*(nombres+i),21);
-        cin.ignore();
-
-        while (strlen(*(nombres+i))>20)
-        {
-            cout<<"\ncorredor "<<i+1<<"(max. 20 caracteres): ";cin.getline(*(nombres+i),21);
-            cin.ignore();
-        }
+        cout<<"\ncorredor "<<i+1<<" (max. 20 caracteres): ";cin.getline(*(nombres+i),21);
 
         cout<<"tiempo (en segundos): ";cin>>*(tiempo+i);
-        
+        while (*(tiempo+i)<=0)
+        {
+            cout<<"tiempo (en segundos): ";cin>>*(tiempo+i);
+        }
+        cin.ignore();
     }
     
 }
@@ -38,7 +35,7 @@ void ranking(char** &nombres, int* tiempo, int n){
     for (int i = 0; i < n; i++)
     {
         cout<<"\ncorredor "<<i+1<<"°:\n"<<*(nombres+i);
-        cout<<"\ntiempo: "<<*(tiempo+i);
+        cout<<"\ntiempo: "<<*(tiempo+i)<<endl;
     }
     
     
@@ -90,7 +87,7 @@ int main(){
     {
         cout<<"ingrese la cantidad de corredores (min. 1, max. 30): ";
         cin>>n;
-    }
+    }cin.ignore();
 
     for (int i = 0; i < n; i++)
     {
@@ -99,20 +96,20 @@ int main(){
 
     leer(corredores,tiempo,n);
     
-    cout<<"RANKING FINAL\n";
+    cout<<"\nRANKING FINAL";
     ranking(corredores,tiempo,n);
-    cin.ignore();
+
     cout<<"\ningrese nombre a buscar: ";cin.getline(key,21);
 
     int posicion=buscar(corredores,n,key);
     if(posicion==-1){
         cout<<"no existe el corredor\n";
     }else{
-        cout<<"corredor encontrado\nposicion: "<<posicion+1<<"tiempo: "<<*(tiempo+posicion);
+        cout<<"corredor encontrado\nposicion: "<<posicion+1<<" tiempo: "<<*(tiempo+posicion);
     }
 
-    cout<<"\ningrese timepo minimo y maximo: ";cin>>min>>max;
-    cout<<"corredores en el rango ["<<min<<", "<<max<<"]:\n";
+    cout<<"\n\ningrese timepo minimo y maximo: ";cin>>min>>max;
+    cout<<"\ncorredores en el rango ["<<min<<", "<<max<<"]:\n";
     rango(corredores,tiempo,n,min,max);
 
     for (int i = 0; i < n; i++)
