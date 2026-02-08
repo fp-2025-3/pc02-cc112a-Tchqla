@@ -34,8 +34,8 @@ void ranking(char** &nombres, int* tiempo, int n){
 
     for (int i = 0; i < n; i++)
     {
-        cout<<"\ncorredor "<<i+1<<"°:\n"<<*(nombres+i);
-        cout<<"\ntiempo: "<<*(tiempo+i)<<endl;
+        cout<<"\n"<<i+1<<"°: "<<*(nombres+i);
+        cout<<"\t-\ttiempo: "<<*(tiempo+i)<<endl;
     }
     
     
