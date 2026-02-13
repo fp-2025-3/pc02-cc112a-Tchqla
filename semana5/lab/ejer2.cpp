@@ -1,33 +1,49 @@
 #include <iostream>
-#include <cmath>
+#include <string>
 using namespace std;
 
-struct Punto
+struct Estudiante
 {
-    int x,y,z;
+    string nombre;
+    float nota;
 };
 
-double distanciaEuclidiana(Punto a, Punto b){
-    double D, temp;
-    temp=pow(a.x-b.x,2)+pow(a.y-b.y,2)+pow(a.z-b.z,2);
-    D=sqrt(temp);
+void llenado(Estudiante*  lista, int n){
+    for (Estudiante* i = lista; i < lista+n; i++)
+    {
+        int a=i-lista;
+        cin.ignore();
+        cout<<"ingrese el nombre del estudiante "<<a+1<<": ";getline(cin,i->nombre);
+        cout<<"ingrese la nota del estudiante "<<a+1<<": ";cin>>i->nota;
+    }
     
-    return D;
+}
+
+void mayorNota(Estudiante* lista,int n){
+    float max=lista->nota;
+    int m=0;
+    for (Estudiante* i = lista; i < lista+n; i++)
+    {
+        if (max<(i->nota))
+        {
+            max=i->nota;
+            m=i-lista;
+        }
+    }
+    
+    cout<<"el estudiante con la mayor nota es: "<<(lista+m)->nombre<<"\nnota: "<<max<<endl;
 }
 
 int main(){
-    Punto d1,d2;
+    int n;
+    cout<<"ingrese el numero de estudiantes: ";cin>>n;
 
-    cout<<"ingrese las coordenadas del primer punto:\nX: ";cin>>d1.x;
-    cout<<"Y: ";cin>>d1.y;
-    cout<<"Z: ";cin>>d1.z;
+    Estudiante* clase=new Estudiante[n];
 
-    cout<<"ingrese las coordenadas del segundo punto:\nX: ";cin>>d2.x;
-    cout<<"Y: ";cin>>d2.y;
-    cout<<"Z: ";cin>>d2.z;
+    llenado(clase,n);
+    mayorNota(clase,n);
 
-    double dist=distanciaEuclidiana(d1,d2);
-    cout<<"la distancia entre los 2 puntos es: "<<dist<<endl;
-    
+    delete[] clase;
+
     return 0;
 }

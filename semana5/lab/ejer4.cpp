@@ -18,7 +18,7 @@ void leerMostrar(){
         cout<<"ingrese el coeficiente de x^"<<g<<": ";cin>>*i;
     }
     
-    cout<<"ingrese el grado del primer polinomio: ";cin>>p2.grado;
+    cout<<"\ningrese el grado del segundo polinomio: ";cin>>p2.grado;
     p2.coef=new int[p2.grado+1];
 
     for (int* i = p2.coef+p2.grado; i >= p2.coef; i--)
@@ -77,10 +77,10 @@ void sumarMultiplicar(){
 
 
     pmulti.grado=p2.grado+p1.grado;
-    pmulti.coef=new int[pmulti.grado+1];
-    for (int i = 0; i < p1.grado; i++)
+    pmulti.coef=new int[pmulti.grado+1]();
+    for (int i = 0; i <= p1.grado; i++)
     {
-        for (int j = 0; j < p2.grado; j++)
+        for (int j = 0; j <= p2.grado; j++)
         {
             pmulti.coef[i+j]+=p1.coef[i]*p2.coef[j];
         }
@@ -94,22 +94,29 @@ void sumarMultiplicar(){
     }cout<<pmulti.coef[0]<<endl;
 }
 
-int evaluar(){
-    int n,temp=0;
-    cout<<"ingrese el valor de x para evaluar en el polinomio: ",cin>>n;
+int evaluar(int n){
+    int temp=0;
 
-    for (int i = 1; i <= p1.grado; i++)
+    for (int i = 0; i <= p1.grado; i++)
     {
         temp+=p1.coef[i]*pow(n,i);
-    }temp+=p1.coef[0];
+    }
     
     return temp;
 }
 
 int main(){
     leerMostrar();
+    sumarMultiplicar();
+
+    int n;
+    cout<<"\ningrese el valor de x para evaluar en el polinomio: ",cin>>n;
+
+    int eva=evaluar(n);
+    cout<<"el primer polinomio evaluado en x = "<<n<<" es: "<<eva<<endl;
 
     delete[] p1.coef;delete[] p2.coef;
+    delete[] psuma.coef;delete[] pmulti.coef;
 
     return 0;
 }

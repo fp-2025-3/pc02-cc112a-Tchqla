@@ -8,15 +8,14 @@ using namespace std;
 struct seleccion
 {
     string nombre;
-    int puntos,PG,PP,PE;
-    float rendimiento;
+    int PG,PP,PE;
+    float rendimiento,puntos;
 };
 
 void llenado(seleccion* countryxd,int n){
     for (seleccion* i = countryxd; i < countryxd+n; i++)
     {
-        cin.ignore();
-        cout<<"ingrese nombre de la seleccion: ";getline(cin,i->nombre);
+        cout<<"ingrese nombre de la seleccion "<<(i-countryxd)+1<<": ";getline(cin,i->nombre);
         i->PG=rand()%(100-0+1);
         i->PP=rand()%(100-(i->PG)-0+1);
         i->PE=100-(i->PG+i->PP);
@@ -33,10 +32,10 @@ void llenado(seleccion* countryxd,int n){
 void tabla(seleccion* countryxd,int n){
     float max=countryxd->rendimiento;
     int m=0;
-    cout<<"seleccion\t\tPG\tPP\tPE\tpuntaje\trendimiento\n";
+    cout<<"\n\nseleccion\tPG\tPP\tPE\tpuntaje\t\trendimiento\n";
     for (seleccion* i = countryxd; i < countryxd+n; i++)
     {
-        cout<<i->nombre<<"\t\t"<<i->PG<<"\t"<<i->PP<<"\t"<<i->PE<<"\t"<<i->puntos<<"\t\t"<<setprecision(1)<<i->rendimiento<<endl;
+        cout<<i->nombre<<"\t\t"<<i->PG<<"\t"<<i->PP<<"\t"<<i->PE<<"\t"<<fixed<<setprecision(0)<<i->puntos<<"\t\t"<<fixed<<setprecision(1)<<i->rendimiento<<endl;
         if (max<(i->rendimiento))
         {
             max=i->rendimiento;
@@ -44,7 +43,7 @@ void tabla(seleccion* countryxd,int n){
         }
     }
     
-    cout<<"\nla seleccion con mejor rendimiento es: "<<(countryxd+m)->nombre<<" rendimiento: "<<max<<endl;
+    cout<<"\nla seleccion con mejor rendimiento es: "<<(countryxd+m)->nombre<<" rendimiento: "<<fixed<<setprecision(1)<<max<<endl;
 }
 
 int main(){
