@@ -26,7 +26,7 @@ Producto crearProducto(int codigo, const char* nombre,double precio, int stock){
 
 Producto* crearInventario(int n){
     Producto* temp=new Producto[n];
-    char* nom=new char[30];
+    char nom[30];
 
     for (Producto* i = temp; i < temp+n; i++)
     {
@@ -52,7 +52,7 @@ Producto* buscarProducto(Producto* inventario,int n,int codigoBuscado){
 }
 
 void liberarInventario(Producto* inventario, int n){
-    cout<<"\tINVENTARIO\n";
+    cout<<"\n\tINVENTARIO\n";
     for (Producto* i = inventario; i < inventario+n; i++)
     {
         cout<<"Codigo: "<<i->codigo<<" | Nombre: "<<i->nombre<<" | Precio: "<<i->precio<<" | Stock: "<<i->stock<<endl;
