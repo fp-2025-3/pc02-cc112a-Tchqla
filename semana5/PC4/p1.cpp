@@ -8,6 +8,16 @@ struct polinomio
     int* coefi;
 }p1,p2,p3;
 
+void imprimir(polinomio p){
+    for (int i = 0; i < p1.grado; i++)
+    {
+        if (p.coefi[i]!=0)
+        {
+            cout<<p.coefi[i]<<"x^"<<abs(i-p.grado)<<" + ";
+        }
+    }cout<<p.coefi[p.grado]<<endl;
+}
+
 void sumar(){
     int temp[]={p1.grado,p2.grado,p3.grado};int max=p1.grado;int i=0;
     while (i<3)
@@ -65,10 +75,7 @@ void sumar(){
     }
     
     cout<<"suma de los tres polinomios: ";
-    for (int i = 0; i < psuma.grado; i++)
-    {
-        cout <<psuma.coefi[i]<<"x^"<<abs(i-psuma.grado)<<" + ";
-    }cout<<psuma.coefi[psuma.grado]<<endl;
+    imprimir(psuma);
     
     delete[] psuma.coefi;
 }
@@ -98,14 +105,12 @@ void multiplicacion(){
     }
     
     cout<<"producto de los tres polinomios: ";
-    for (int i = 0; i < pmulti.grado; i++)
-    {
-        cout <<pmulti.coefi[i]<<"x^"<<abs(i-pmulti.grado)<<" + ";
-
-    }cout<<pmulti.coefi[pmulti.grado]<<endl;
+    imprimir(pmulti);
     
     delete[] pmulti.coefi;delete[] ptemp.coefi;
 }
+
+
 
 int main(){
     int a[]={1,0,3},b[]={-4,5},c[]={3,0,1};
@@ -131,18 +136,11 @@ int main(){
 
 
     cout<<"polinomio 1: ";
-    for (int i = 0; i < p1.grado; i++)
-    {
-        cout<<p1.coefi[i]<<"x^"<<abs(i-p1.grado)<<" + ";
-    }cout<<p1.coefi[p1.grado]<<endl;cout<<"polinomio 2: ";
-    for (int i = 0; i < p2.grado; i++)
-    {
-        cout<<p2.coefi[i]<<"x^"<<abs(i-p2.grado)<<" + ";
-    }cout<<p2.coefi[p2.grado]<<endl;cout<<"polinomio 3: ";
-    for (int i = 0; i < p3.grado; i++)
-    {
-        cout<<p3.coefi[i]<<"x^"<<abs(i-p3.grado)<<" + ";
-    }cout<<p3.coefi[p3.grado]<<"\n\n";
+    imprimir(p1);
+    cout<<"polinomio 2: ";
+    imprimir(p2);
+    cout<<"polinomio 3: ";
+    imprimir(p3);cout<<endl;
 
     sumar();
     multiplicacion();
