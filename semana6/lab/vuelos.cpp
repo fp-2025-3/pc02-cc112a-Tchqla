@@ -110,19 +110,32 @@ void reservarAsiento(Vuelo &vuelo){
 
 /* 4 */
 void cancelarReserva(Vuelo &vuelo, int dni){
-    Vuelo actual=vuelo;
-    while (actual.listaReservas!=nullptr)
-    {
-        if (actual.listaReservas->Pasajero.dni==dni)
-        {
-            delete actual.asientos->pasajero;
-            actual.asientos->reservado=false;
-        }
-        
-        actual.listaReservas=actual.listaReservas->siguiente;
+    NodoReserva* actual=vuelo.listaReservas;
+    NodoReserva* anterior=nullptr;
+
+    while (actual!=nullptr && actual->Pasajero.dni==dni)
+    {    
+        anterior=actual;
+        actual=actual->siguiente;
     }
     
+    if (actual==nullptr && actual->Pasajero.dni!=dni)
+    {
+        cout<<"el dni no existe en la lista\n";
+        return;
+    }
     
+    vuelo.asientos[actual->numeroAsiento].reservado=false;
+    delete vuelo.asientos[actual->numeroAsiento].pasajero;
+
+    if (anterior==nullptr)
+    {
+        vuelo.listaReservas=actual->siguiente;
+    }else{
+        anterior->siguiente=actual->siguiente;
+    }
+    
+    delete actual;
 }
 
 int main(){
