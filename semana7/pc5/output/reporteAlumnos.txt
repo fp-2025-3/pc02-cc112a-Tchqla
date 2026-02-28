@@ -1,0 +1,43 @@
+---REPORTE DE ALUMNOS---
+
+Total de estudiantes: 30
+
+Codigo: 1001 | Promedio: 15.6667 | condicion: APROBADO
+Codigo: 1002 | Promedio: 10.6667 | condicion: APROBADO
+Codigo: 1003 | Promedio: 19 | condicion: APROBADO
+Codigo: 1004 | Promedio: 8.33333 | condicion: DESAPROBADO
+Codigo: 1005 | Promedio: 15.3333 | condicion: APROBADO
+Codigo: 1006 | Promedio: 12 | condicion: APROBADO
+Codigo: 1007 | Promedio: 6 | condicion: DESAPROBADO
+Codigo: 1008 | Promedio: 19 | condicion: APROBADO
+Codigo: 1009 | Promedio: 15 | condicion: APROBADO
+Codigo: 1010 | Promedio: 9 | condicion: DESAPROBADO
+Codigo: 1011 | Promedio: 13 | condicion: APROBADO
+Codigo: 1012 | Promedio: 17 | condicion: APROBADO
+Codigo: 1013 | Promedio: 9 | condicion: DESAPROBADO
+Codigo: 1014 | Promedio: 19 | condicion: APROBADO
+Codigo: 1015 | Promedio: 6 | condicion: DESAPROBADO
+Codigo: 1016 | Promedio: 15 | condicion: APROBADO
+Codigo: 1017 | Promedio: 11 | condicion: APROBADO
+Codigo: 1018 | Promedio: 19.6667 | condicion: APROBADO
+Codigo: 1019 | Promedio: 5 | condicion: DESAPROBADO POR REGLA ACADEMICA
+Codigo: 1020 | Promedio: 14 | condicion: APROBADO
+Codigo: 1021 | Promedio: 12 | condicion: APROBADO
+Codigo: 1022 | Promedio: 8 | condicion: DESAPROBADO
+Codigo: 1023 | Promedio: 17 | condicion: APROBADO
+Codigo: 1024 | Promedio: 10 | condicion: APROBADO
+Codigo: 1025 | Promedio: 18 | condicion: APROBADO
+Codigo: 1026 | Promedio: 13 | condicion: APROBADO
+Codigo: 1027 | Promedio: 6 | condicion: DESAPROBADO
+Codigo: 1028 | Promedio: 15 | condicion: APROBADO
+Codigo: 1029 | Promedio: 9 | condicion: DESAPROBADO
+Codigo: 1030 | Promedio: 17 | condicion: APROBADO
+
+
+Promedio general del curso: 12.7889
+
+El estudiante con mayor promedio:
+Codigo: 1018 | Nombre: Daniela | Promedio: 19.6667
+
+El estudiante con menor promedio:
+Codigo: 1019 | Nombre: Jorge | Promedio: 5
