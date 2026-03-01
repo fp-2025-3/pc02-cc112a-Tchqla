@@ -1,14 +1,19 @@
 #Nombre: Maylli Puelles Rahy Alexis
+
 #Codigo: 20241457c
+
 ##Ejercicio 1
-![alt text](imagen/p1terminal.png)
-![alt text](imagen/p1text.png)
+![alt text](capturas/p1terminal.png)
+![alt text](capturas/p1text.png)
+
 ##Ejercicio 2
-![alt text](imagen/p2,1.png)
-![alt text](imagen/p2,2.png)
+![alt text](capturas/p2,1.png)
+![alt text](capturas/p2,2.png)
+
 ##Ejercicio 3
-![alt text](imagen/p3terminal.png)
-![alt text](imagen/p3text.png)
+![alt text](capturas/p3terminal.png)
+![alt text](capturas/p3text.png)
+
 ##Ejercicio 4
-![alt text](imagen/p4terminal.png)
-![alt text](imagen/p4text.png)
+![alt text](capturas/p4terminal.png)
+![alt text](capturas/p4text.png)
