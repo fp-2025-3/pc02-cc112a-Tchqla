@@ -10,9 +10,9 @@ struct Empleado{
 
 int main(){
     Empleado empleado;
-    fstream file("input/empleados.dat",ios::binary);
+    fstream file("input/empleados.dat",ios::in | ios::out |ios::binary);
 
-    if (file.is_open())
+    if (!file)
     {
         cerr<<"error al abrir el archivo\n";
         return 1;
@@ -28,6 +28,7 @@ int main(){
     if (!file)
     {
         cerr<<"no existe un empleado con ese ID\n";
+        file.close();
         return 1;
     }
     
@@ -37,13 +38,14 @@ int main(){
         <<"\n\nIngrese nuevo salario:";cin>>empleado.salario;
         
 
-    file.seekg((id-1)*sizeof(Empleado),ios::beg);
+    file.seekp((id-1)*sizeof(Empleado),ios::beg);
 
     file.write((char*)&empleado,sizeof(Empleado));
 
     if (!file)
     {
         cerr<<"\nno se pudo actualizar el salario\n";
+        file.close();
         return 1;
     }else{
         cout<<"\nsalario actualizado correctamente\n";
