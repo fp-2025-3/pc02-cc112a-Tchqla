@@ -1,8 +1,6 @@
 #ifndef VEHICULO_H
 #define VEHIVULO_H
 
-#include <string>
-
 class Vehiculo
 {
 private:

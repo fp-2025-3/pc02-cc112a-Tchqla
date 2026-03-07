@@ -24,14 +24,14 @@ Proyecto* llenarProyectos(int n){
     return p;
 }
 
-void ordenarProyectos(Proyecto* &p,int n){
+void ordenarProyectos(Proyecto* p,int n){
     for (int i = 0; i < n-1; i++)
     {
         for (int j = 0; j < i-n-1; j++)
         {
-            if (p[i].presupuesto<p[i+1].presupuesto)
+            if (p[j].presupuesto<p[j+1].presupuesto)
             {
-                swap(p[i],p[i+1]);
+                swap(p[j],p[j+1]);
             }
             
         }
@@ -52,7 +52,7 @@ Proyecto* insertarArchivo(Proyecto* p,int n,int &r){
         
         for (int j = 0; j < nuevoID; j++)
         {
-            if (p[j].id==id_actual)
+            if (temp[j].id==id_actual)
             {
                 nuevo=true;
                 break;
@@ -80,7 +80,7 @@ Proyecto* insertarArchivo(Proyecto* p,int n,int &r){
     }
     
     delete[] temp;
-    ///////////
+    
     fstream file("output/proyectos.dat",ios::in|ios::out|ios::binary);
     
     if (!file)
@@ -90,21 +90,13 @@ Proyecto* insertarArchivo(Proyecto* p,int n,int &r){
 
         file.open("output/proyectos.dat",ios::in|ios::out|ios::binary);
     }
-    ///////////
+    
     file.write((char*)sinRepetir,sizeof(Proyecto)*nuevoID);
 
     file.close();r=nuevoID;
 
     return sinRepetir;
 }
-
-/*ofstream file("output/proyectos.dat",ios::binary);
-    
-    if (!file)
-    {
-        cerr<<"error al abrir el archivo\n";
-        return nullptr;
-    }*/
 
 int main(){
     int n;
@@ -123,7 +115,7 @@ int main(){
     }
     
 
-    cout<<"fueron registrados "<<noRepetidos<<" proyectos:\n";
+    cout<<"\nfueron registrados "<<noRepetidos<<" proyectos:\n";
 
     for (Proyecto* i = proyectosNoRepetidos; i < proyectosNoRepetidos+noRepetidos; i++)
     {
