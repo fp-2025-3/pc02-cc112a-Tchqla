@@ -5,7 +5,7 @@ using namespace std;
 
 class Sensor
 {
-protected:
+private:
     string id;
     double* posicion;
 public:
@@ -17,7 +17,7 @@ public:
         id=p.id;
         
         posicion=new double[2];
-        //posicion=p.posicion;??
+        
         posicion[0]=p.posicion[0];
         posicion[1]=p.posicion[1];
     }
@@ -29,11 +29,19 @@ public:
             delete[] posicion;
 
             posicion=new double[2];
-            //posicion=otro.posicion;??
+            
             posicion[0]=otro.posicion[0];
             posicion[1]=otro.posicion[1];
         }
         
+    }
+
+    double getPosi(int i) const{
+        return posicion[i];
+    }
+
+    string getId() const{
+        return id;
     }
 
     virtual ~Sensor(){
@@ -58,8 +66,8 @@ public:
         return cobertura;
     }
 
-    virtual bool detectar(double x,double y) const{
-        double superficie=M_PI*(pow(x-posicion[0],2)+pow(y-posicion[1],2));
+    virtual bool detecta(double x,double y) const{
+        double superficie=M_PI*(pow(x-getPosi(0),2)+pow(y-getPosi(1),2));
 
         if (areaCobertura()<superficie)
         {
@@ -70,9 +78,9 @@ public:
     }
 
     virtual void imprimir() const{
-        cout<<"\nID Sendor circular:\n"<<id
-            <<"\nposicion x: "<<posicion[0]
-            <<"\nposicion y: "<<posicion[1]
+        cout<<"\nID Sendor circular:\n"<<getId()
+            <<"\nposicion x: "<<getPosi(0)
+            <<"\nposicion y: "<<getPosi(1)
             <<"\nradio: "<<radio<<endl;
     }
 
@@ -95,19 +103,19 @@ public:
         return cobertura;
     }
 
-    virtual bool detectar(double x,double y) const{
+    virtual bool detecta(double x,double y) const{
 
-        bool enx=(x>=posicion[0]-ancho)&&(x<=posicion[0]+ancho);
+        bool enx=(x>=getPosi(0)-ancho)&&(x<=getPosi(0)+ancho);
 
-        bool eny=(y>=posicion[1]-alto)&&(y<=posicion[1]+alto);
+        bool eny=(y>=getPosi(1)-alto)&&(y<=getPosi(1)+alto);
         
         return (eny&&enx);
     }
 
     virtual void imprimir() const{
-        cout<<"\nID Sendor Rectangular:\n"<<id
-            <<"\nposicion x: "<<posicion[0]
-            <<"\nposicion y: "<<posicion[1]
+        cout<<"\nID Sendor Rectangular:\n"<<getId()
+            <<"\nposicion x: "<<getPosi(0)
+            <<"\nposicion y: "<<getPosi(1)
             <<"\nancho: "<<ancho
             <<"\nalto: "<<alto<<endl;
     }
@@ -150,20 +158,162 @@ public:
     }
 
     void mostrarSensores() const{
+	    cout<<"Sensores activos: "<<cantidad;
 
+	    for (int i = 0;i<cantidad;i++)
+	    {
+	    	cout<<"\nID: "<<sensores[i]->getId()
+	    	    <<"\nX: "<<sensores[i]->getPosi(0)
+	    	    <<"\nY: "<<sensores[i]->getPosi(1)<<endl;
+	    }
     }
 
-    double areaTotalCbertura() const{}
+    double areaTotalCbertura() const{
+    	double Superficie=0;
 
-    int sensoresQueDetectan(double x,double y) const{}
+	    for(int i=0;i<cantidad;i++){
+	    	Superficie+=sensores[i]->areaCobertura();
+	    }
 
-    Sensor* sensorMayorCobertura() const{}
+	    return Superficie;
+    }
 
-    ~SistemaSensores();
+    int sensoresQueDetectan(double x,double y) const{
+        int cont=0;
+
+        for (int i = 0; i < cantidad; i++)
+        {
+            if (sensores[i]->detecta(x,y))
+            {
+                cont++;
+            }
+            
+        }
+        
+        return cont;
+    }
+
+    Sensor* sensorMayorCobertura() const{
+        if (cantidad==0)
+        {
+            return nullptr;
+        }
+        
+        Sensor* mayor=sensores[0];double max=mayor->areaCobertura();
+        for (int i = 0; i < cantidad; i++)
+        {
+            if (max<sensores[i]->areaCobertura())
+            {
+                max=sensores[i]->areaCobertura();
+                mayor=sensores[i];
+            }
+            
+        }
+        
+        return mayor;
+    }
+
+    ~SistemaSensores(){
+        for (int i = 0; i < cantidad; i++)
+        {
+            delete[] sensores[i];
+        }
+        
+        delete[] sensores;
+    }
 };
 
 
 int main(){
+    SistemaSensores miSistema;
+    int opcion;
+
+    do {
+        cout<<"\n========================================="
+            <<"\n       SISTEMA GESTOR DE SENSORES"
+            <<"\n========================================="
+            <<"\n1. Agregar un sensor circular"
+            <<"\n2. Agregar un sensor rectangular"
+            <<"\n3. Mostrar todos los sensores"
+            <<"\n4. Calcular el area total de cobertura"
+            <<"\n5. Consultar deteccion en un punto (X, Y)"
+            <<"\n6. Mostrar el sensor con mayor cobertura"
+            <<"\n7. Salir del programa"
+            <<"\nElige una opcion (1-7): ";
+        cin>>opcion;
+        cin.ignore(); 
+
+        switch (opcion) {
+            case 1:{
+                string id;
+                double x,y,radio;
+                
+                cout<<"\n--- NUEVO SENSOR CIRCULAR ---";
+                cout<<"\nIngrese ID (sin espacios): ";cin>>id;
+                cout<<"Ingrese posicion X: ";cin >>x;
+                cout<<"Ingrese posicion Y: ";cin >>y;
+                cout<<"Ingrese el radio: ";cin>>radio;
+                
+                double pos[2]={x,y};
+                miSistema.agregarSensor(new SensorCircular(id,pos,radio));
+                cout<<"Sensor circular agregado con exito\n";
+                break;
+            }
+            case 2:{
+                string id;
+                double x,y,ancho,alto;
+                
+                cout<<"\n--- NUEVO SENSOR RECTANGULAR ---";
+                cout<<"\nIngrese ID (sin espacios): ";cin>>id;
+                cout<<"Ingrese posicion X: ";cin>>x;
+                cout<<"Ingrese posicion Y: ";cin>>y;
+                cout<<"Ingrese el ancho (hacia los lados): ";cin>>ancho;
+                cout<<"Ingrese el alto (hacia arriba/abajo): ";cin>>alto;
+                
+                double pos[2]={x,y};
+                miSistema.agregarSensor(new SensorRectangular(id,pos,ancho,alto));
+                cout<<"Sensor rectangular agregado con exito\n";
+                break;
+            }
+            case 3:
+                cout<<"\n--- LISTA DE SENSORES ---\n";
+                miSistema.mostrarSensores();
+                break;
+
+            case 4:
+                cout<<"\nEl area total de cobertura de la red es: "<<miSistema.areaTotalCbertura()<<" unidades cuadradas.\n";
+                break;
+
+            case 5: {
+                double testX,testY;
+                cout<<"\n--- PRUEBA DE DETECCION ---";
+                cout<<"\nIngrese coordenada X a evaluar: ";cin>>testX;
+                cout<<"\nIngrese coordenada Y a evaluar: ";cin>>testY;
+                
+                int detectan = miSistema.sensoresQueDetectan(testX,testY);
+                cout<<"\nEl punto ("<<testX<<", "<<testY<<") es detectado por "<<detectan<<" sensor(es).\n";
+                break;
+            }
+            case 6:{
+                Sensor* elMayor=miSistema.sensorMayorCobertura();
+                if (elMayor!=nullptr) {
+                    cout<<"\n--- SENSOR CON MAYOR COBERTURA ---";
+                    elMayor->imprimir();
+                } else {
+                    cout<<"\nNo hay sensores registrados en el sistema.\n";
+                }
+                break;
+            }
+            case 7:
+                cout<<"\nSaliendo del sistema... ¡Hasta pronto!\n";
+                break;
+
+            default:
+                cout<<"\nOpcion invalida. Por favor, ingrese un numero del 1 al 7.\n";
+                break;
+        }
+
+    } while (opcion!=7);
 
     return 0;
 }
